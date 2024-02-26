@@ -18,13 +18,7 @@ namespace CarRental
             
         }
 
-        public static bool IsCorrectKey(string input)
-        {
-            var acceptedKeys = new List<string>() { "1", "2", "3" };
-            return acceptedKeys.Contains(input);
-
-
-        }
+        
 
     }
 }

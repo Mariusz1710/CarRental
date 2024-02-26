@@ -14,14 +14,14 @@
                 Menu.ShowMenu();
                 var userInput = Console.ReadLine();
 
-                var correctKey = Menu.IsCorrectKey(userInput);
+                var correctKey = IsCorrectKey(userInput);
 
                 while (!correctKey)
                 {
                     Console.Clear();
                     Menu.ShowMenu();
                     userInput = Console.ReadLine();
-                    correctKey = Menu.IsCorrectKey(userInput);
+                    correctKey = IsCorrectKey(userInput);
                 }
 
                 
@@ -33,10 +33,23 @@
                     Cars.ShowCars();
                     Console.ReadLine();
                 }
+                else if (correct == 2)
+                {
+                    var rental = new Rental();
+                    rental.GetInput();
+                }
 
             } while (true);
 
             
+        }
+
+        public static bool IsCorrectKey(string input)
+        {
+            var acceptedKeys = new List<string>() { "1", "2", "3" };
+            return acceptedKeys.Contains(input);
+
+
         }
     }
 }

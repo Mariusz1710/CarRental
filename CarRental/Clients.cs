@@ -32,5 +32,23 @@ namespace CarRental
                 Console.WriteLine(client.Id + " | " + client.Name + " | " + client.CarLicense.ToShortDateString()); 
             }
         }
+
+        public static bool CheckClientId(int id)
+        {
+            bool exists = false;
+
+            foreach (var client in clients)
+            {
+                if (client.Id == id) 
+                {
+                    exists = true;
+                    return exists;
+                }
+            }
+            Console.WriteLine("Nie ma klienta o takim id");
+            Console.WriteLine("Naciśnij eneter");
+            Console.ReadLine();
+            return exists;
+        }
     }
 }
