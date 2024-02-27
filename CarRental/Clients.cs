@@ -50,5 +50,54 @@ namespace CarRental
             Console.ReadLine();
             return exists;
         }
+
+        public static bool IsFourYears(int id)
+        {
+            var today = DateTime.Now;
+
+            
+            foreach (var client in clients)
+            {
+                if (client.Id == id)
+                {
+                    var diff = today.Subtract(client.CarLicense);
+
+                    if (diff.Days > 1459)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static int CalculateDays(Rental ren)
+        {
+            var days = ren.Days;
+
+            if (days > 30)
+            {
+                days += 3;
+            }
+            else if (days > 7)
+            {
+                days += 1;
+            }
+
+            return days;
+
+        }
+
+        public static string GetName(int id)
+        {
+            foreach (Client client in clients)
+            {
+                if (client.Id == id)
+                {
+                    return client.Name;
+                }
+            }
+            return "Error";
+        }
     }
 }

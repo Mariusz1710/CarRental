@@ -13,16 +13,16 @@ namespace CarRental
 
         public static void CrateCars()
         {
-            cars.Add(new Car(1, "Skoda Citigo", "mini", "benzyna", "dostępny", 70));
-            cars.Add(new Car(2, "Toyota Aygo", "mini", "benzyna", "dostępny", 90));
-            cars.Add(new Car(3, "Fiat 500", "mini", "elektryczny", "dostępny", 110));
-            cars.Add(new Car(4, "Ford Focus", "kompakt", "diesel", "dostępny", 160));
-            cars.Add(new Car(5, "Kia Ceed", "kompakt", "benzyna", "dostępny", 150));
-            cars.Add(new Car(6, "Volkswagen Golf", "kompakt", "benzyna", "dostępny", 160));
-            cars.Add(new Car(7, "Hyundai Kona Electric", "kompakt","elektryczny", "dostępny", 180));
-            cars.Add(new Car(8, "Audi A6 Allroad", "premium","diesel", "dostępny", 290));
-            cars.Add(new Car(9, "Mercedes E270 AMG", "premium","benzyna", "dostępny", 320));
-            cars.Add(new Car(10, "Tesla Model S", "premium","elektryczny", "dostępny", 350));
+            cars.Add(new Car(1, "Skoda Citigo", "mini", "benzyna", true, 70));
+            cars.Add(new Car(2, "Toyota Aygo", "mini", "benzyna", true, 90));
+            cars.Add(new Car(3, "Fiat 500", "mini", "elektryczny", true, 110));
+            cars.Add(new Car(4, "Ford Focus", "kompakt", "diesel", true, 160));
+            cars.Add(new Car(5, "Kia Ceed", "kompakt", "benzyna", true, 150));
+            cars.Add(new Car(6, "Volkswagen Golf", "kompakt", "benzyna", true, 160));
+            cars.Add(new Car(7, "Hyundai Kona Electric", "kompakt","elektryczny", true, 180));
+            cars.Add(new Car(8, "Audi A6 Allroad", "premium","diesel", true, 290));
+            cars.Add(new Car(9, "Mercedes E270 AMG", "premium","benzyna", true, 320));
+            cars.Add(new Car(10, "Tesla Model S", "premium","elektryczny", true, 350));
         }
 
         public static void ShowCars()
@@ -36,6 +36,42 @@ namespace CarRental
                 Console.WriteLine(car.Id + " | " + car.Brand + " | " + car.Segment + " | " + car.Fuel + " | " + car.Price);
             }
         }
-        
+
+        public static void CheckAvailable(Rental ren)
+        {
+            foreach (var car in cars)
+            {
+                if ((car.Segment.Equals(ren.ClientSegment)) && (car.Fuel.Equals(ren.ClientFuel)) && car.Available)
+                {
+                    var amount = CalculateAmount(car, ren);
+                    var days = Clients.CalculateDays(ren);
+                    var client = Clients.GetName(ren.ClientId);
+                    Rental.ShowRental(car, client, amount, days);
+                    car.Available = false;
+                    //Console.WriteLine(car.Brand);
+                    Console.WriteLine("Naciśnij enter");
+                    Console.ReadLine();
+                    return;
+                }
+            }
+        }
+
+        public static double CalculateAmount(Car car, Rental ren)
+        {
+            var price = car.Price;
+            var days = ren.Days;
+
+            var amount = (double)price * days;
+
+            if (!Clients.IsFourYears(ren.ClientId))
+            {
+                amount *= 1.2;
+            }
+
+            return amount;
+
+        }
+
+
     }
 }

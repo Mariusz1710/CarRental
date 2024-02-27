@@ -33,38 +33,75 @@
             //Console.WriteLine("Podałeś klienta o id" + this.clientId);
             //Console.ReadLine();
 
-            while (true)
+            if (Clients.IsFourYears(tempId))
             {
-                ShowMenuSegment();
-                var userSegment = Console.ReadLine();
-                var correctSegment = Program.IsCorrectKey(userSegment);
 
-                while (!correctSegment)
+                while (true)
                 {
-                    Console.WriteLine("Podałeś nieprawidłowy segment");
-                    Console.WriteLine("Naciśnij eneter");
-                    Console.ReadLine();
-                    Console.Clear();
                     ShowMenuSegment();
-                    userSegment = Console.ReadLine();
-                    correctSegment = Program.IsCorrectKey(userSegment);
-                }
+                    var userSegment = Console.ReadLine();
+                    var correctSegment = Program.IsCorrectKey(userSegment);
 
-                if (userSegment.Equals("1"))
-                {
-                    this.ClientSegment = "mini";
+                    while (!correctSegment)
+                    {
+                        Console.WriteLine("Podałeś nieprawidłowy segment");
+                        Console.WriteLine("Naciśnij eneter");
+                        Console.ReadLine();
+                        Console.Clear();
+                        ShowMenuSegment();
+                        userSegment = Console.ReadLine();
+                        correctSegment = Program.IsCorrectKey(userSegment);
+                    }
+
+                    if (userSegment.Equals("1"))
+                    {
+                        this.ClientSegment = "mini";
+                    }
+                    else if (userSegment.Equals("2"))
+                    {
+                        this.ClientSegment = "kompakt";
+                    }
+                    else if (userSegment.Equals("3"))
+                    {
+                        this.ClientSegment = "premium";
+                    }
+                    break;
                 }
-                else if (userSegment.Equals("2"))
-                {
-                    this.ClientSegment = "kompakt";
-                }
-                else if (userSegment.Equals("3"))
-                {
-                    this.ClientSegment = "premium";
-                }
-                break;
             }
+            else
+            {
+                while (true)
+                {
+                    ShowMenuSegmentWithoutPremium();
+                    var userSegment = Console.ReadLine();
+                    var correctSegment = Program.IsCorrectKeyTwo(userSegment);
 
+                    while (!correctSegment)
+                    {
+                        Console.WriteLine("Podałeś nieprawidłowy segment");
+                        Console.WriteLine("Naciśnij eneter");
+                        Console.ReadLine();
+                        Console.Clear();
+                        ShowMenuSegmentWithoutPremium();
+                        userSegment = Console.ReadLine();
+                        correctSegment = Program.IsCorrectKey(userSegment);
+                    }
+
+                    if (userSegment.Equals("1"))
+                    {
+                        this.ClientSegment = "mini";
+                    }
+                    else if (userSegment.Equals("2"))
+                    {
+                        this.ClientSegment = "kompakt";
+                    }
+                    else if (userSegment.Equals("3"))
+                    {
+                        this.ClientSegment = "premium";
+                    }
+                    break;
+                }
+            }
             while (true)
             {
                 ShowMenuFuel();
@@ -142,7 +179,18 @@
             Console.WriteLine("1 - mini");
             Console.WriteLine("2 - kompakt");
             Console.WriteLine("3 - premium");
+           
         }
+
+        public static void ShowMenuSegmentWithoutPremium()
+        {
+            Console.Clear();
+            Console.WriteLine("Podaj segment");
+            Console.WriteLine("1 - mini");
+            Console.WriteLine("2 - kompakt");
+            
+        }
+
 
         public static void ShowMenuFuel()
         {
@@ -154,8 +202,22 @@
 
         }
 
-
-
+        public static void ShowRental(Car car,string name,double amount,int days)
+        {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("UMOWA NAJMU POJAZDU");
+            Console.WriteLine("DATA ZAWARCIA" + DateTime.Now);
+            Console.WriteLine("------------------");
+            Console.WriteLine("WYNAJMUJĄCY: " + name);
+            Console.WriteLine("RODZAJ POJAZDU: " + car.Brand);
+            Console.WriteLine("RODZAJ PALIWA: " + car.Fuel);
+            Console.WriteLine("RODZAJ SEGMENTU: " + car.Segment);
+            Console.WriteLine("----------------");
+            Console.WriteLine("DATA ZWROTU POJAZDU: " + DateTime.Now.AddDays(days));
+            Console.WriteLine("OPŁATA: " + amount + "PLN");
+            Console.WriteLine("Naciśnij enter");
+            Console.Clear();
+        }
 
     }
 }
