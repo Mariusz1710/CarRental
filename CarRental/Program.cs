@@ -39,6 +39,13 @@
                     rental.GetInput();
                     Cars.CheckAvailable(rental);
                 }
+                else if (correct == 3)
+                {
+                    Console.Clear();
+                    Console.WriteLine("DZIĘKUJEMY ZA SKORZYSTANIE Z NASZEJ WYPOŻYCZALNI");
+                    Console.WriteLine("ZAPRASZAMY PONOWNIE");
+                    Environment.Exit(0);
+                }
 
             } while (true);
 
@@ -49,16 +56,12 @@
         {
             var acceptedKeys = new List<string>() { "1", "2", "3" };
             return acceptedKeys.Contains(input);
-
-
         }
 
         public static bool IsCorrectKeyTwo(string input)
         {
             var acceptedKeys = new List<string>() { "1", "2"};
             return acceptedKeys.Contains(input);
-
-
         }
     }
 }

@@ -16,7 +16,7 @@ namespace CarRental
             clients.Add(new Client(1, "Jan Nowak", new DateTime(2021,3,4)));
             clients.Add(new Client(2, "Agnieszka Kowalska", new DateTime(1999,1,15)));
             clients.Add(new Client(3, "Robert Lewandowski ", new DateTime(2010,12,18)));
-            clients.Add(new Client(4, "Zofia Plucińska", new DateTime(2020,4,28)));
+            clients.Add(new Client(4, "Zofia Plucińska", new DateTime(2020,4,29)));
             clients.Add(new Client(5, "Grzegorz Braun", new DateTime(2015,7,12)));
         }
 
@@ -27,10 +27,11 @@ namespace CarRental
             Console.WriteLine("------------------");
             Console.WriteLine("Id | Imię i nazwisko | Data wydania prawa jazdy");
 
-            foreach (var client in clients)
+            foreach(var client in clients)
             {
                 Console.WriteLine(client.Id + " | " + client.Name + " | " + client.CarLicense.ToShortDateString()); 
             }
+            
         }
 
         public static bool CheckClientId(int id)
@@ -45,8 +46,11 @@ namespace CarRental
                     return exists;
                 }
             }
-            Console.WriteLine("Nie ma klienta o takim id");
-            Console.WriteLine("Naciśnij eneter");
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("NIE ZNALEZIONO KLIENTA O TAKIM ID");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("\nNaciśnij Eneter, aby kontyuować");
             Console.ReadLine();
             return exists;
         }
@@ -62,7 +66,7 @@ namespace CarRental
                 {
                     var diff = today.Subtract(client.CarLicense);
 
-                    if (diff.Days > 1459)
+                    if (diff.Days > 1461)
                     {
                         return true;
                     }

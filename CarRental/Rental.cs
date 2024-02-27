@@ -16,13 +16,15 @@
             do
             {
                 Console.Clear();
-                Console.WriteLine("Podaj Id klienta");
+                Console.WriteLine("PROSZĘ PODAĆ ID KLIENTA, KTÓRY WYPOŻYCZA SAMOCHÓD: ");
                 var userId = Console.ReadLine();
 
                 if (!int.TryParse(userId, out tempId))
                 {
-                    Console.WriteLine("To nie jest liczba");
-                    Console.WriteLine("Naciśnij enter");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("TO NIE JEST LICZBA");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYNUOWAĆ");
                     Console.ReadLine();
                     continue;
                 }
@@ -30,8 +32,6 @@
             } while (!correctId);
 
             this.ClientId = tempId;
-            //Console.WriteLine("Podałeś klienta o id" + this.clientId);
-            //Console.ReadLine();
 
             if (Clients.IsFourYears(tempId))
             {
@@ -44,8 +44,10 @@
 
                     while (!correctSegment)
                     {
-                        Console.WriteLine("Podałeś nieprawidłowy segment");
-                        Console.WriteLine("Naciśnij eneter");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("PODAŁEŚ NIEPRAWIDŁOWY SEGMENT");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYUOWAĆ");
                         Console.ReadLine();
                         Console.Clear();
                         ShowMenuSegment();
@@ -78,13 +80,15 @@
 
                     while (!correctSegment)
                     {
-                        Console.WriteLine("Podałeś nieprawidłowy segment");
-                        Console.WriteLine("Naciśnij eneter");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("PODAŁEŚ NIEPRAWIDŁOWY SEGMENT");
+                        Console.ForegroundColor = ConsoleColor.Gray;
+                        Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYUOWAĆ");
                         Console.ReadLine();
                         Console.Clear();
                         ShowMenuSegmentWithoutPremium();
                         userSegment = Console.ReadLine();
-                        correctSegment = Program.IsCorrectKey(userSegment);
+                        correctSegment = Program.IsCorrectKeyTwo(userSegment);
                     }
 
                     if (userSegment.Equals("1"))
@@ -110,8 +114,10 @@
 
                 while (!correctFuel)
                 {
-                    Console.WriteLine("Podałeś nieprawidłowy rodzaj paliwa");
-                    Console.WriteLine("Naciśnij eneter");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("PODAŁEŚ NIEPRAWIDŁOWY RODZAJ PALIWA");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYNUOWAĆ");
                     Console.ReadLine();
                     Console.Clear();
                     ShowMenuFuel();
@@ -141,31 +147,45 @@
             do
             {
                 Console.Clear();
-                Console.WriteLine("Ile dni");
+                Console.WriteLine("ILE DNI");
                 var userDays = Console.ReadLine();
 
-                if (!int.TryParse(userDays, out tempDays))
+                correctDays = int.TryParse(userDays, out tempDays);
+                if (!correctDays)
                 {
-                    Console.WriteLine("To nie jest liczba");
-                    Console.WriteLine("Naciśnij enter");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("TO NIE JEST LICZBA");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYNUOWAĆ");
                     Console.ReadLine();
                     continue;
                 }
-                
+                else
+                {
+                    tempDays = Convert.ToInt32(userDays);
+                }
+
+
                 if (tempDays > 0 && tempDays < 366)
                 {
                     correctDays = true;
                 }
                 else if (tempDays < 1)
                 {
-                    Console.WriteLine("Podałeś liczbę ujemną");
-                    Console.WriteLine("Naciśnij enter");
+                    correctDays = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("PODAŁEŚ LICZBĘ UJEMNĄ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYUOWAĆ");
                     Console.ReadLine();
                 }
                 else
                 {
-                    Console.WriteLine("Możesz wypożyczyć samochód maksymalnie na rok");
-                    Console.WriteLine("Naciśnij enter");
+                    correctDays = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("MOŻESZ WYPOŻYCZYĆ SAMOCHÓD MAKSYMALNIE NA ROK");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYUOWAĆ");
                     Console.ReadLine();
                 }
             } while (!correctDays);
@@ -175,30 +195,28 @@
         public static void ShowMenuSegment()
         {
             Console.Clear();
-            Console.WriteLine("Podaj segment");
             Console.WriteLine("1 - mini");
             Console.WriteLine("2 - kompakt");
             Console.WriteLine("3 - premium");
-           
+            Console.WriteLine("PODAJ SEGMENT SAMOCHODU: ");
         }
 
         public static void ShowMenuSegmentWithoutPremium()
         {
             Console.Clear();
-            Console.WriteLine("Podaj segment");
             Console.WriteLine("1 - mini");
             Console.WriteLine("2 - kompakt");
-            
+            Console.WriteLine("PODAJ SEGMENT SAMOCHODU: ");
         }
 
 
         public static void ShowMenuFuel()
         {
            Console.Clear();
-           Console.WriteLine("Podaj rodzaj paliwa");
-           Console.WriteLine("1 - benzyna");
-           Console.WriteLine("2 - elektryczny");
-           Console.WriteLine("3 - diesel");
+           Console.WriteLine("1.  benzyna");
+           Console.WriteLine("2.  elektryczny");
+           Console.WriteLine("3.  diesel");
+           Console.WriteLine("PODAJ PREFEROWANY RODZAJ PALIWA:");
 
         }
 
@@ -206,17 +224,17 @@
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("UMOWA NAJMU POJAZDU");
-            Console.WriteLine("DATA ZAWARCIA" + DateTime.Now);
+            Console.WriteLine("DATA ZAWARCIA: " + DateTime.Now.ToShortDateString());
             Console.WriteLine("------------------");
             Console.WriteLine("WYNAJMUJĄCY: " + name);
             Console.WriteLine("RODZAJ POJAZDU: " + car.Brand);
             Console.WriteLine("RODZAJ PALIWA: " + car.Fuel);
             Console.WriteLine("RODZAJ SEGMENTU: " + car.Segment);
             Console.WriteLine("----------------");
-            Console.WriteLine("DATA ZWROTU POJAZDU: " + DateTime.Now.AddDays(days));
+            Console.WriteLine("DATA ZWROTU POJAZDU: " + DateTime.Now.AddDays(days).ToShortDateString());
             Console.WriteLine("OPŁATA: " + amount + "PLN");
-            Console.WriteLine("Naciśnij enter");
-            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Gray;
+
         }
 
     }

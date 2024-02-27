@@ -33,8 +33,10 @@ namespace CarRental
 
             foreach (var car in cars)
             {
-                Console.WriteLine(car.Id + " | " + car.Brand + " | " + car.Segment + " | " + car.Fuel + " | " + car.Price);
+                Console.WriteLine(car.Id + " | " + car.Brand + " | " + car.Segment + " | " + car.Fuel + " | " + car.Price + " PLN");
             }
+
+            Console.WriteLine("\nNaciśnij Enter, aby kontynuować");
         }
 
         public static void CheckAvailable(Rental ren)
@@ -49,11 +51,12 @@ namespace CarRental
                     Rental.ShowRental(car, client, amount, days);
                     car.Available = false;
                     //Console.WriteLine(car.Brand);
-                    Console.WriteLine("Naciśnij enter");
+                    Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYNUOWAĆ");
                     Console.ReadLine();
                     return;
                 }
             }
+            ShowNotAvailable();
         }
 
         public static double CalculateAmount(Car car, Rental ren)
@@ -72,6 +75,14 @@ namespace CarRental
 
         }
 
-
+        public static void ShowNotAvailable()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("NIESTETY BRAK JEST SAMOCHODÓW O PODANYCH KRYTERIACH");
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.WriteLine("\nNACIŚNIJ ENTER, ABY KONTYUOWAĆ");
+            Console.ReadLine();
+        }
     }
 }
